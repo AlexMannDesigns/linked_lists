@@ -1,18 +1,17 @@
 #include "list.h"
 
-void ft_lstadd_back(t_list **alst, t_list *new)
+void print_content(t_list *elem)
 {
-	t_list *temp;
+	printf("%s\n", elem->content);
+}
 
-	//save front of the list into a tmp variable
-	temp = *alst;
-	//iterate through list until next = NULL
-	while ((*alst)->next != NULL)
-		(*alst) = (*alst)->next;
-	//set next pointer of last node to new node
-	(*alst)->next = new;
-	//reset list address to front node
-	(*alst) = temp;
+void ft_lstiter(t_list *lst, void (*f)(t_list *elem))
+{
+	while (lst)
+	{
+		f(lst);
+		lst = lst->next;
+	}
 }
 
 int main(void)
@@ -28,11 +27,22 @@ int main(void)
 	ft_lstadd_back(&list, ft_lstnew("this is the new back", ft_strlen("this is the new back") + 1));
 
 	//printing each node sequentially
+	printf("ft_lstnew, add_front & add_back tests...\n\n");
 	printf("%s %d\n", list->content, list->content_size);
 	printf("%s %d\n", list->next->content, list->next->content_size);
 	printf("%s %d\n", list->next->next->content, list->next->next->content_size);
 	printf("%s %d\n", list->next->next->next->content, list->next->next->next->content_size);
 	printf("%s %d\n", list->next->next->next->next->content, list->next->next->next->next->content_size);
 	printf("%s %d\n", list->next->next->next->next->next->content, list->next->next->next->next->next->content_size);
+
+	t_list *n_list = NULL;
+	t_list *o_list = NULL;
+	ft_lstadd_back(&n_list, ft_lstnew("this is a NULL test for back", ft_strlen("this is a NULL test for back") + 1));
+	ft_lstadd_front(&o_list, ft_lstnew("this is a NULL test for front", ft_strlen("this is a NULL test for front") + 1));
+	printf("\n%s\n", n_list->content);
+	printf("%s\n", o_list->content);
+	//printing each node again...
+	printf("\nft_lstiter tests...\n\n");
+	ft_lstiter(list, print_content);
 	return (0);
 }
