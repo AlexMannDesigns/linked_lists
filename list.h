@@ -16,5 +16,6 @@ void *ft_memcpy(void *dest, const void *src, size_t n);
 void ft_lstadd_front(t_list **alst, t_list *new);
 t_list *ft_lstnew(void const *content, size_t content_size);
 void ft_lstadd_back(t_list **alst, t_list *new);
+void ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 
 #endif

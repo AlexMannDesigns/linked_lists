@@ -5,15 +5,6 @@ void print_content(t_list *elem)
 	printf("%s\n", elem->content);
 }
 
-void ft_lstiter(t_list *lst, void (*f)(t_list *elem))
-{
-	while (lst)
-	{
-		f(lst);
-		lst = lst->next;
-	}
-}
-
 int main(void)
 {
 	t_list *list;
@@ -44,5 +35,7 @@ int main(void)
 	//printing each node again...
 	printf("\nft_lstiter tests...\n\n");
 	ft_lstiter(list, print_content);
+	n_list = NULL;
+	ft_lstiter(n_list, print_content);
 	return (0);
 }
