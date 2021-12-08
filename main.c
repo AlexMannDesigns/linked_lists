@@ -11,6 +11,34 @@ void	delete_node(void *content, size_t size)
 	size = size * 0;
 }
 
+t_list	*list_toupper(t_list *elem)
+{
+	size_t	len;
+	size_t	i;
+	char 	*str;	
+
+	len = elem->content_size;
+	str = (char *)(elem->content);
+	i = 0;
+	while (i < len)
+	{
+		if (i > 1)
+			str[i] = 'a';
+		i++;
+	}
+	elem->content = (void *)str;
+	return elem;
+}
+
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+{
+	//iterate list and apply 'f' to each link, creating a 'fresh' list from the result
+	//remember malloc protection
+	t_list	*temp;
+	temp = f(ft_lstnew(lst->content, lst->content_size));
+	return temp;
+}
+
 int	main(void)
 {
 	t_list *list;
@@ -44,15 +72,23 @@ int	main(void)
 	//printing each node again...
 	printf("\nft_lstiter tests...\n\n");
 	ft_lstiter(list, print_content);
+	
+	t_list *new_list;
+	new_list = ft_lstmap(list, list_toupper);
+	printf("\n\nMapped list:\n");
+	ft_lstiter(new_list, print_content);	
+	printf("\n\noriginal list:\n");
+	ft_lstiter(list, print_content);	
+
 	// n_list = NULL;
 	// ft_lstiter(n_list, print_content);
 	//printf("\n\ndeleting node 6 and printing again...\n\n");
 	//ft_lstdelone(&list->next->next->next->next->next, delete_node);
 	//ft_lstiter(list, print_content);
 
-	printf("\n\ndeleting list from node 5 and printing again...\n\n");
-	ft_lstdel(&list->next->next->next->next, delete_node);
-	ft_lstiter(list, print_content);
+	//printf("\n\ndeleting list from node 5 and printing again...\n\n");
+	//ft_lstdel(&list->next->next->next->next, delete_node);
+	//ft_lstiter(list, print_content);
 	//printf("\n\nprinting list from node 7...\n\n");
 	//ft_lstiter(seven, print_content);
 

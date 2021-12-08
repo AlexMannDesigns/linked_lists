@@ -1,6 +1,6 @@
 #include "list.h"
 
-void ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
+void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
 {
 	if (!(*alst))
 		return ;
