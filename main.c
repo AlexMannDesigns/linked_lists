@@ -1,27 +1,17 @@
 #include "list.h"
 
-void print_content(t_list *elem)
+void	print_content(t_list *elem)
 {
 	printf("%s\n", (char *)(elem)->content);
 }
 
-void delete_node(void *content, size_t size)
+void	delete_node(void *content, size_t size)
 {
 	free(content);
 	size = size * 0;
 }
 
-void ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
-{
-	//memory freed in the del pointer function
-	del((*alst)->content, (*alst)->content_size);
-	//dont free the memory of next
-	free(*alst);
-	//set pointer to NULL
-	*alst = NULL;
-}
-
-int main(void)
+int	main(void)
 {
 	t_list *list;
 	t_list *seven;
@@ -56,11 +46,16 @@ int main(void)
 	ft_lstiter(list, print_content);
 	// n_list = NULL;
 	// ft_lstiter(n_list, print_content);
-	printf("\n\ndeleting node 6 and printing again...\n\n");
-	ft_lstdelone(&list->next->next->next->next->next, delete_node);
-	ft_lstiter(list, print_content);
+	//printf("\n\ndeleting node 6 and printing again...\n\n");
+	//ft_lstdelone(&list->next->next->next->next->next, delete_node);
+	//ft_lstiter(list, print_content);
 
-	printf("\n\nprinting list from node 7...\n\n");
-	ft_lstiter(seven, print_content);
+	printf("\n\ndeleting list from node 5 and printing again...\n\n");
+	ft_lstdel(&list->next->next->next->next, delete_node);
+	ft_lstiter(list, print_content);
+	//printf("\n\nprinting list from node 7...\n\n");
+	//ft_lstiter(seven, print_content);
+
+
 	return (0);
 }
